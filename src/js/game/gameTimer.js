@@ -1,35 +1,39 @@
-export function timer(seconds, container) {
-    let timerSeconds = seconds;
-    let interval = null;
-    let resolvePromise = null;
-    
-    const promise = new Promise(resolve => {
-        resolvePromise = resolve;
-        container.textContent = timerSeconds;
+export class GameTimer {
+    constructor(seconds, container, gameManager) {
+        this.seconds = seconds;
+        this.container = container;
+        this.gameManager = gameManager;
+        this.timerElement = document.getElementById("timer");
+        this.timerInterval = null;
+    }
 
-        interval = setInterval(() => {
-            timerSeconds -= 1;
-            container.textContent = timerSeconds;
+    start(callback) {
+        return new Promise(resolve => {
+            this.timerInterval = setInterval(() => {
+                this.seconds -= 1;
+                this.updateDisplay();
 
-            if (timerSeconds <= 0) {
-                stop();
-            }
-        }, 1000);
-    });
+                if (this.seconds === 0) {
+                    clearInterval(this.timerInterval);
+                    this.stop();
+                    callback();
+                    resolve();
+                }
+            }, 1000)
+        })
+    }
 
-    function stop() {
-        if (interval) {
-            clearInterval(interval);
-            interval = null;
-            container.textContent = "";
-            if (resolvePromise) {
-                resolvePromise("done");
-            }
+    updateDisplay() {
+        if (this.timerElement) {
+            this.timerElement.textContent = `${this.seconds}`;
         }
     }
 
-    return {
-        promise,
-        stop
-    };
+    stop() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+            this.timerElement.innerHTML = "";
+        }
+    }
 }

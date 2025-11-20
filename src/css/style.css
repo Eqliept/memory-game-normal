@@ -181,6 +181,34 @@
     color: #999;
 }
 
+.timer__input.error,
+.cards__input.error {
+    border-color: #e74c3c;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+    color: #e74c3c;
+    background: #fee;
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: 5px;
+    font-size: 14px;
+    animation: slideInError 0.3s ease-out;
+}
+
+@keyframes slideInError {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .game-settings__submit {
     width: 100%;
     padding: 15px 30px;
@@ -205,4 +233,98 @@
 .game-settings__submit:active {
     transform: translateY(0);
     box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+}
+
+/* Сообщения о победе/поражении */
+.game-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+    animation: slideIn 0.5s ease-out;
+}
+
+.game-message__content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 40px 50px;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    min-width: 400px;
+    max-width: 500px;
+}
+
+.game-message__content--win {
+    border: 3px solid #28a745;
+}
+
+.game-message__content--lose {
+    border: 3px solid #dc3545;
+}
+
+.game-message__content h2 {
+    margin: 0 0 15px 0;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+.game-message__content--win h2 {
+    color: #28a745;
+}
+
+.game-message__content--lose h2 {
+    color: #dc3545;
+}
+
+.game-message__content p {
+    margin: 10px 0 25px 0;
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.game-message__content strong {
+    font-size: 24px;
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.game-message__restart {
+    width: 100%;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.game-message__restart:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.game-message__restart:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
